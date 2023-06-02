@@ -6,20 +6,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from '../config';
 
-const RegisterScreen = () => {
+const ForgotPasswordScreen = () => {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
 
-  const registerUser = async () => {
+  const handleForgotPassword = async () => {
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password);
-      await firebase.auth().currentUser.sendEmailVerification();
+      await firebase.auth().sendPasswordResetEmail(email);
+      alert('Se ha enviado un correo electrónico para restablecer la contraseña.');
       setEmail('');
-
     } catch (error) {
       alert(error.message);
     }
@@ -33,22 +29,11 @@ const RegisterScreen = () => {
         end={{ x: 1, y: 0 }}
         style={styles.gradientContainer}
       >
-        <Icon name="user" size={50} color="#FFF" style={styles.icon} />
-        <Text style={styles.title}>Register Here..!!</Text>
+        <Icon name="lock" size={50} color="#FFF" style={styles.icon} />
+        <Text style={styles.title}>Forgot Your Password?</Text>
+        <Text style={styles.subtitle}>Enter your email address to reset your password.</Text>
       </LinearGradient>
       <View style={styles.inputContainer}>
-        <PaperTextInput
-          style={styles.textInput}
-          placeholder="First Name"
-          onChangeText={setFirstName}
-          autoCorrect={false}
-        />
-        <PaperTextInput
-          style={styles.textInput}
-          placeholder="Last Name"
-          onChangeText={setLastName}
-          autoCorrect={false}
-        />
         <PaperTextInput
           style={styles.textInput}
           label="Email"
@@ -57,21 +42,10 @@ const RegisterScreen = () => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        <PaperTextInput
-          style={styles.textInput}
-          label="Password"
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-          theme={{ colors: { primary: '#62C370' } }}
-        />
       </View>
-      <TouchableOpacity onPress={registerUser} style={styles.button}>
-        <Text style={styles.buttonText}>Register</Text>
+      <TouchableOpacity onPress={handleForgotPassword} style={styles.button}>
+        <Text style={styles.buttonText}>Reset Password</Text>
       </TouchableOpacity>
-
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.linkButton}>
         <Text style={styles.linkButtonText}>Go Back</Text>
       </TouchableOpacity>
@@ -101,6 +75,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     color: '#FFF',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#FFF',
+    textAlign: 'center',
+    marginBottom: 20,
   },
   inputContainer: {
     width: '100%',
@@ -135,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default ForgotPasswordScreen;

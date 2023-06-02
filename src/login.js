@@ -70,6 +70,9 @@ const Login = () => {
         <TouchableOpacity onPress={() => navigation.navigate('register')} style={styles.registerContainer}>
           <Text style={styles.registerText}>Don't have an account? Register here</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('forgotscreen')} style={styles.registerContainer}>
+          <Text style={styles.registerText}>Forgot your password?</Text>
+        </TouchableOpacity>
       </ScrollView>
     </LinearGradient>
   );

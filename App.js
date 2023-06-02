@@ -10,6 +10,7 @@ import RegisterScreen from "./src/register";
 import Header from "./src/components/Header";
 import SplashScreen from './src/SplashScreen';
 import Dashboard from "./src/Dashboard";
+import ForgotPasswordScreen from "./src/ForgotPasswordScreen";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,7 @@ function App() {
             />
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="register" component={RegisterScreen} />
+            <Stack.Screen name="forgotscreen" component={ForgotPasswordScreen}/>
           </>
         ) : (
           
