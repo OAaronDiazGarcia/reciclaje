@@ -57,15 +57,15 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start', // Cambiado de 'center' a 'flex-start'
     paddingHorizontal: 20,
+    paddingTop: 40, // Añadido paddingTop
   },
   gradientContainer: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 40,
-    marginBottom: 40,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   button: {
-    marginTop: 50,
+    marginTop: 20, // Cambiado de 50 a 20
     height: 50,
     width: Dimensions.get('window').width - 40,
     backgroundColor: '#62C370',

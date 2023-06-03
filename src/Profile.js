@@ -62,11 +62,10 @@ const Profile = () => {
       aspect: [1, 1],
       quality: 1,
     });
-
+  
     if (!result.canceled) {
       setProfileImage(result.assets[0].uri);
     }
-    
   };
 
   return (
@@ -81,7 +80,7 @@ const Profile = () => {
           <Text style={styles.title}> Update your credentials</Text>
           <View style={styles.profileImageContainer}>
             {profileImage ? (
-              <Image source={{ uri: `data:image/jpeg;base64,${profileImage}` }} style={styles.profileImage} />
+              <Image source={{ uri: profileImage }} style={styles.profileImage} />
             ) : (
               <Ionicons name="person-circle-outline" size={100} color="#565559" />
             )}

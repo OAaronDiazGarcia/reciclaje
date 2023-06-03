@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, Animated, Easing, ScrollView, TouchableO
 import { Ionicons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from '@react-navigation/native';
 
 const Home = () => {
   const rotationValue = useRef(new Animated.Value(0)).current;
@@ -35,6 +36,8 @@ const Home = () => {
     Linking.openURL('https://www.facebook.com/profile.php?id=100093068466567&mibextid=ZbWKwL');
   };
 
+  const handleStatusPress = () => {};
+
   return (
     <LinearGradient
       colors={['#AEC6CF', '#FFF']}
@@ -46,7 +49,10 @@ const Home = () => {
         <View style={styles.container}>
           <Text style={styles.title}>Ecological culture</Text>
           <Text style={styles.subtitle}>
-          The collection and processing of paper and cardboard, glass or plastic waste means creating new products based on those same materials. A new opportunity for the Earth, which can be protected if the benefits of recycling are understood, the correct way to separate waste and the challenges that this activity will face in the coming years.
+            The collection and processing of paper and cardboard, glass or plastic waste means creating new products
+            based on those same materials. A new opportunity for the Earth, which can be protected if the benefits of
+            recycling are understood, the correct way to separate waste and the challenges that this activity will face
+            in the coming years.
           </Text>
           <View style={styles.imageContainer}>
             <Animatable.Image
@@ -67,7 +73,8 @@ const Home = () => {
             />
           </View>
           <Text style={styles.subtitle}>
-          In order to acquire awareness, one must have a clear and concise notion of the subject to be sensitized. In this case, we talk about recycling and we will explain in a simple way what is meant by recycling.
+            In order to acquire awareness, one must have a clear and concise notion of the subject to be sensitized. In
+            this case, we talk about recycling and we will explain in a simple way what is meant by recycling.
           </Text>
           <Text style={styles.subtitle}>Contact Us:</Text>
           <View style={styles.socialIconsContainer}>
@@ -78,6 +85,12 @@ const Home = () => {
               <Ionicons name="logo-instagram" size={32} color="#E1306C" style={styles.socialIcon} />
             </TouchableOpacity>
           </View>
+          <TouchableOpacity onPress={handleStatusPress} style={styles.linkContainer}>
+            <Ionicons name="ios-analytics" size={24} color="#4267B2" />
+            <Link to="/status" style={styles.linkText}>
+            Do you want to see the global progress?
+            </Link>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </LinearGradient>
@@ -100,7 +113,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
-    color: '#444',
+    color: '#000',
     fontFamily: 'System',
   },
   subtitle: {
@@ -127,6 +140,19 @@ const styles = StyleSheet.create({
   },
   socialIcon: {
     marginHorizontal: 10,
+  },
+  linkContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  linkText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginLeft: 5,
+    color: '#4267B2',
+    textDecorationLine: 'underline',
   },
 });
 

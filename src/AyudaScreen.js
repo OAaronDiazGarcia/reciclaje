@@ -46,7 +46,7 @@ const AyudaScreen = () => {
         style={styles.gradient}
       >
         <SafeAreaView style={styles.container}>
-          <Text style={styles.title}>Pantalla de Ayuda</Text>
+          <Text style={styles.title}>Send a Message!</Text>
           <View style={styles.chatContainer}>
             <GiftedChat
               messages={messages}

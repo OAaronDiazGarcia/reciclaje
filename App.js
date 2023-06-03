@@ -13,6 +13,7 @@ import Dashboard from "./src/Dashboard";
 import ForgotPasswordScreen from "./src/ForgotPasswordScreen";
 import ContactoScreen from "./src/ContactoScreen";
 import AyudaScreen from "./src/AyudaScreen";
+import StatusScreen from "./src/StatusScreen";
 
 const Stack = createStackNavigator();
 
@@ -91,6 +92,20 @@ function App() {
                 },
               }}
             />
+<Stack.Screen
+  name="status"
+  component={StatusScreen}
+  options={{
+    headerTitle: () => <Header name="Eco Easy" />,
+    headerStyle: {
+      height: 100,
+      backgroundColor: '#62C370',
+      borderBottomWidth: 0,
+      elevation: 0,
+      shadowOpacity: 0,
+    },
+  }}
+/>
           </>
         )}
       </Stack.Navigator>

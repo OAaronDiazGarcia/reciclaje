@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button, TextInput as PaperTextInput } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -26,65 +26,72 @@ const RegisterScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <LinearGradient
-        colors={['#FBB03B', '#FF7E5F']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.gradientContainer}
-      >
-        <Icon name="user" size={50} color="#FFF" style={styles.icon} />
-        <Text style={styles.title}>Register Here..!!</Text>
-      </LinearGradient>
-      <View style={styles.inputContainer}>
-        <PaperTextInput
-          style={styles.textInput}
-          placeholder="First Name"
-          onChangeText={setFirstName}
-          autoCorrect={false}
-        />
-        <PaperTextInput
-          style={styles.textInput}
-          placeholder="Last Name"
-          onChangeText={setLastName}
-          autoCorrect={false}
-        />
-        <PaperTextInput
-          style={styles.textInput}
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <PaperTextInput
-          style={styles.textInput}
-          label="Password"
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-          theme={{ colors: { primary: '#62C370' } }}
-        />
-      </View>
-      <TouchableOpacity onPress={registerUser} style={styles.button}>
-        <Text style={styles.buttonText}>Register</Text>
-      </TouchableOpacity>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <LinearGradient
+          colors={['#FBB03B', '#FF7E5F']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.gradientContainer}
+        >
+          <Icon name="user" size={50} color="#FFF" style={styles.icon} />
+          <Text style={styles.title}>Register Here..!!</Text>
+        </LinearGradient>
+        <View style={styles.inputContainer}>
+          <PaperTextInput
+            style={styles.textInput}
+            placeholder="First Name"
+            onChangeText={setFirstName}
+            autoCorrect={false}
+          />
+          <PaperTextInput
+            style={styles.textInput}
+            placeholder="Last Name"
+            onChangeText={setLastName}
+            autoCorrect={false}
+          />
+          <PaperTextInput
+            style={styles.textInput}
+            label="Email"
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <PaperTextInput
+            style={styles.textInput}
+            label="Password"
+            value={password}
+            onChangeText={setPassword}
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry={true}
+            theme={{ colors: { primary: '#62C370' } }}
+          />
+        </View>
+        <TouchableOpacity onPress={registerUser} style={styles.button}>
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.linkButton}>
-        <Text style={styles.linkButtonText}>Go Back</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.linkButton}>
+          <Text style={styles.linkButtonText}>Go Back</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   gradientContainer: {
     width: '100%',
@@ -113,7 +120,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   button: {
-    marginTop: 50,
+    marginTop: 20,
     height: 50,
     width: Dimensions.get('window').width - 40,
     backgroundColor: '#62C370',

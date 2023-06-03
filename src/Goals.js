@@ -148,7 +148,7 @@ const Goals = () => {
               type="material"
               onPress={() => setVidrio(!vidrio)}
             />
-            <Text style={styles.goalText}>Carton</Text>
+            <Text style={styles.goalText}>Glass</Text>
             {vidrio && (
               <View style={styles.quantityContainer}>
                 <Button
@@ -189,14 +189,14 @@ const Goals = () => {
           <View style={styles.elementContainer}>
             <Icon name="file" type="font-awesome" />
             <Text style={styles.elementText}>
-              {papelCantidad} Items in the database
+              {papelCantidad} Your paper in the database
             </Text>
           </View>
 
           <View style={styles.elementContainer}>
             <Icon name="cube" type="font-awesome" />
             <Text style={styles.elementText}>
-              {vidrioCantidad} Items in the database
+              {vidrioCantidad} Your glass in the database
             </Text>
           </View>
 
