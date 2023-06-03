@@ -5,6 +5,7 @@ import Goals from './Goals';
 import Maps from './Maps';
 import Profile from './Profile';
 import Home from './Home';
+import Settings from './Settings';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,10 @@ const BottomTabBar = () => {
           } else if (route.name === 'Maps') {
             iconName = focused ? 'ios-map' : 'ios-map-outline';
             iconColor = focused ? '#2196f3' : color;
-          } else if (route.name === 'Settings') {
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'ios-person' : 'ios-person-outline';
+            iconColor = focused ? '#2196f3' : color;
+          }else if (route.name === 'Settings') {
             iconName = focused ? 'ios-settings' : 'ios-settings-outline';
             iconColor = focused ? '#2196f3' : color;
           }
@@ -38,7 +42,8 @@ const BottomTabBar = () => {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Goals" component={Goals} />
       <Tab.Screen name="Maps" component={Maps} />
-      <Tab.Screen name="Settings" component={Profile} />
+      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
 };

@@ -11,6 +11,8 @@ import Header from "./src/components/Header";
 import SplashScreen from './src/SplashScreen';
 import Dashboard from "./src/Dashboard";
 import ForgotPasswordScreen from "./src/ForgotPasswordScreen";
+import ContactoScreen from "./src/ContactoScreen";
+import AyudaScreen from "./src/AyudaScreen";
 
 const Stack = createStackNavigator();
 
@@ -43,24 +45,53 @@ function App() {
             />
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="register" component={RegisterScreen} />
-            <Stack.Screen name="forgotscreen" component={ForgotPasswordScreen}/>
+            <Stack.Screen name="forgotscreen" component={ForgotPasswordScreen} />
           </>
         ) : (
-          
-          <Stack.Screen
-            name="dashboard"
-            component={Dashboard}
-            options={{
-              headerTitle: () => <Header name="Eco Easy" />,
-              headerStyle: {
-                height: 100,
-                backgroundColor: '#62C370',
-                borderBottomWidth: 0,
-                elevation: 0,
-                shadowOpacity: 0,
-              },
-            }}
-          />
+          <>
+            <Stack.Screen
+              name="dashboard"
+              component={Dashboard}
+              options={{
+                headerTitle: () => <Header name="Eco Easy" />,
+                headerStyle: {
+                  height: 100,
+                  backgroundColor: '#62C370',
+                  borderBottomWidth: 0,
+                  elevation: 0,
+                  shadowOpacity: 0,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="contacto"
+              component={ContactoScreen}
+              options={{
+                headerTitle: () => <Header name="Eco Easy" />,
+                headerStyle: {
+                  height: 100,
+                  backgroundColor: '#62C370',
+                  borderBottomWidth: 0,
+                  elevation: 0,
+                  shadowOpacity: 0,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="ayuda"
+              component={AyudaScreen}
+              options={{
+                headerTitle: () => <Header name="Eco Easy" />,
+                headerStyle: {
+                  height: 100,
+                  backgroundColor: '#62C370',
+                  borderBottomWidth: 0,
+                  elevation: 0,
+                  shadowOpacity: 0,
+                },
+              }}
+            />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>
