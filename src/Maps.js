@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, Button, Dimensions, Text, ScrollView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Animatable from 'react-native-animatable';
 
 const Maps = () => {
   const [searchText, setSearchText] = useState('');
@@ -21,23 +22,29 @@ const Maps = () => {
     <LinearGradient colors={['#AEC6CF', '#FFF']} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search Places"
-            value={searchText}
-            onChangeText={setSearchText}
-          />
-          <Button title="Search" onPress={handleSearch} />
+          <Animatable.View animation="fadeInLeft" duration={700}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search Places"
+              value={searchText}
+              onChangeText={setSearchText}
+            />
+          </Animatable.View>
+          <Animatable.View animation="fadeInRight" duration={500} delay={300}>
+            <Button title="Search" onPress={handleSearch} />
+          </Animatable.View>
         </View>
         <View style={styles.mapContainer}>
           <MapView style={styles.map} region={region} onRegionChange={setRegion}>
             {/* Marcador para mostrar la ubicación actual o los resultados de búsqueda */}
             <Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
           </MapView>
-          <View style={styles.addressContainer}>
-            <Text style={styles.addressText}>Instituto Tecnológico de Aguascalientes</Text>
-            <Text style={styles.addressText}>Aguascalientes, México</Text>
-          </View>
+          <Animatable.View animation="fadeInUp" duration={500} delay={600}>
+            <View style={styles.addressContainer}>
+              <Text style={styles.addressText}>Instituto Tecnológico de Aguascalientes</Text>
+              <Text style={styles.addressText}>Aguascalientes, México</Text>
+            </View>
+          </Animatable.View>
         </View>
       </ScrollView>
     </LinearGradient>
@@ -61,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000',
     marginRight: 8,
     paddingHorizontal: 8,
     borderRadius: 8,

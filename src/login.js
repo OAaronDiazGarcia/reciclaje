@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import firebase from '../config';
+import * as Animatable from 'react-native-animatable';
 
 const Login = () => {
   const navigation = useNavigation();
@@ -33,13 +34,15 @@ const Login = () => {
   };
 
   return (
-    <LinearGradient colors={['#62C370','#fff']} style={styles.container}>
+    <LinearGradient colors={['#62C370', '#fff']} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.iconContainer}>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.iconContainer}>
           <MaterialCommunityIcons name="account-circle" size={100} color="#FFF" />
-        </View>
-        <Text style={styles.title}>WELCOME</Text>
-        <View style={styles.inputContainer}>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000}>
+          <Text style={styles.title}>WELCOME</Text>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.inputContainer}>
           <PaperTextInput
             style={styles.textInput}
             label="Email"
@@ -57,16 +60,18 @@ const Login = () => {
             autoCorrect={false}
             secureTextEntry={true}
           />
-        </View>
-        <Button
-          mode="contained"
-          onPress={() => loginUser(email, password)}
-          style={styles.button}
-          contentStyle={styles.buttonContent}
-          labelStyle={styles.buttonLabel}
-        >
-          Login
-        </Button>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.buttonContainer}>
+          <Button
+            mode="contained"
+            onPress={() => loginUser(email, password)}
+            style={styles.button}
+            contentStyle={styles.buttonContent}
+            labelStyle={styles.buttonLabel}
+          >
+            Login
+          </Button>
+        </Animatable.View>
         <TouchableOpacity onPress={() => navigation.navigate('register')} style={styles.registerContainer}>
           <Text style={styles.registerText}>Don't have an account? Register here</Text>
         </TouchableOpacity>
@@ -107,6 +112,9 @@ const styles = StyleSheet.create({
   textInput: {
     marginBottom: 10,
     backgroundColor: '#FFF',
+  },
+  buttonContainer: {
+    alignItems: 'center',
   },
   button: {
     marginTop: 50,

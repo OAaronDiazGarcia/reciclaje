@@ -2,37 +2,38 @@ import React, { useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import firebase from '../config';
+import * as Animatable from 'react-native-animatable';
 
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     const checkUserAuthentication = async () => {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          // Si el usuario ya ha iniciado sesión, navegar directamente a la pantalla de inicio
-          navigation.navigate('dashboard'); // Reemplaza 'Home' con el nombre de la pantalla de inicio de tu aplicación
+          navigation.navigate('dashboard');
         } else {
-          // Si el usuario no ha iniciado sesión, navegar a la pantalla de inicio de sesión
-          navigation.navigate('login'); // Reemplaza 'Login' con el nombre de la pantalla de inicio de sesión de tu aplicación
+          navigation.navigate('login');
         }
       });
     };
 
-    setTimeout(checkUserAuthentication, 2000); // Cambia el valor '2000' para ajustar el tiempo de visualización de la pantalla de presentación.
+    setTimeout(checkUserAuthentication, 3000);
   }, []);
 
   return (
     <View style={styles.container}>
-  <LinearGradient
-  colors={['#62C370', '#FFF']}
-  start={{ x: 0, y: 0 }}
-  end={{ x: 0, y: 1 }}
-  style={styles.gradient}
->
-        <Image
-          source={require('../splash/Metas.png')}
-          style={styles.image}
-          resizeMode="contain"
-        />
+      <LinearGradient
+        colors={['#62C370', '#FFF']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        style={styles.gradient}
+      >
+        <Animatable.View animation="zoomIn" duration={2000} style={styles.imageContainer}>
+          <Image
+            source={require('../splash/Metas.png')}
+            style={styles.image}
+            resizeMode="contain"
+          />
+        </Animatable.View>
       </LinearGradient>
     </View>
   );
@@ -50,9 +51,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
-  image: {
+  imageContainer: {
     width: '50%',
     height: '50%',
+  },
+  image: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
   },
 });
 

@@ -4,6 +4,7 @@ import { Button, Provider as PaperProvider } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useNavigation } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 
 const Settings = () => {
   const navigation = useNavigation();
@@ -36,13 +37,23 @@ const Settings = () => {
       >
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
           <View style={styles.container}>
+          <View style={styles.iconContainer}>
+              <Animatable.View
+                animation="rotate"
+                easing="linear"
+                iterationCount="infinite"
+                duration={3000}
+              >
+                <Ionicons name="ios-settings-outline" size={150} color="white" />
+              </Animatable.View>
+            </View>
             <Button
               icon={() => <Ionicons name="ios-globe-outline" size={24} color="white" />}
               style={styles.button}
               labelStyle={styles.buttonLabel}
               onPress={handleLanguagePress}
             >
-              Lenguaje
+              Lenguage
             </Button>
             <Button
               icon={() => <Ionicons name="ios-notifications-outline" size={24} color="white" />}
@@ -50,7 +61,7 @@ const Settings = () => {
               labelStyle={styles.buttonLabel}
               onPress={handleNotificationPress}
             >
-              Notificaciones
+              Notifications
             </Button>
             <View style={styles.link}>
               <Ionicons name="ios-person-outline" size={24} color="#000" />
@@ -107,6 +118,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'System',
     color: '#000',
+  },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
 });
 

@@ -88,7 +88,7 @@ const Home = () => {
           <TouchableOpacity onPress={handleStatusPress} style={styles.linkContainer}>
             <Ionicons name="ios-analytics" size={24} color="#4267B2" />
             <Link to="/status" style={styles.linkText}>
-            Do you want to see the global progress?
+              <Text style={styles.linkText}>Do you want to see the global progress?</Text>
             </Link>
           </TouchableOpacity>
         </View>
@@ -115,6 +115,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#000',
     fontFamily: 'System',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   subtitle: {
     fontSize: 16,
@@ -122,6 +125,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#444',
     fontFamily: 'System',
+    textShadowColor: '#000',
+    textShadowRadius: 1,
   },
   imageContainer: {
     flexDirection: 'row',
@@ -153,6 +158,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     color: '#4267B2',
     textDecorationLine: 'underline',
+    textShadowRadius: 1,
   },
 });
 

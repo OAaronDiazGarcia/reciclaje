@@ -237,6 +237,8 @@ const styles = {
     fontWeight: 'bold',
     marginBottom: 16,
     color: '#000',
+    textAlign: 'center',
+    textTransform: 'uppercase',
   },
   goalContainer: {
     flexDirection: 'row',
@@ -247,29 +249,37 @@ const styles = {
     marginLeft: 8,
     fontSize: 16,
     color: '#000',
+    fontWeight: 'bold',
   },
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginLeft: 10,
+    marginRight: 10,
+    height: 35,
   },
   quantityButton: {
     backgroundColor: '#FFF',
-    marginLeft: 8,
-    marginRight: 8,
+    marginLeft: 10,
+    marginRight: 10,
     width: 30,
     height: 35,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 5,
   },
   quantityButtonEnabled: {
     backgroundColor: '#FFF',
+    
+    
   },
   quantityButtonLabel: {
     fontSize: 15,
     color: '#000',
+    fontWeight: 'bold',
   },
   quantityInput: {
-    marginLeft: 20,
+    marginLeft: 40,
     fontSize: 16,
     borderWidth: 1,
     borderColor: 'transparent',
@@ -278,15 +288,18 @@ const styles = {
     color: '#000',
     width: 48,
     textAlign: 'center',
+    backgroundColor: '#FFF',
   },
   buttonStyle: {
     marginTop: 16,
-    backgroundColor: '#FFF',
+    backgroundColor: '#4267B2',
     borderColor: '#565559',
+    borderRadius: 5,
   },
   buttonLabelStyle: {
     fontSize: 16,
-    color: '#000',
+    color: '#FFF',
+    fontWeight: 'bold',
   },
   elementContainer: {
     flexDirection: 'row',
@@ -294,15 +307,18 @@ const styles = {
     marginTop: 10,
   },
   elementText: {
-    marginLeft: 8,
+    marginLeft: 10,
     fontSize: 16,
     color: '#000',
+    fontWeight: 'bold',
   },
   subTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 16,
     color: '#000',
+    textAlign: 'center',
+    textTransform: 'uppercase',
   },
   notesInput: {
     marginTop: 8,
