@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
-import { Button, Provider as PaperProvider } from 'react-native-paper';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
 import firebase from '../config';
 
-const Goals = () => {
+const Goals = ({ navigation }) => {
   const [papel, setPapel] = useState(false);
   const [papelCantidad, setPapelCantidad] = useState(0);
   const [vidrio, setVidrio] = useState(false);
@@ -97,140 +96,134 @@ const Goals = () => {
   };
 
   return (
-    <PaperProvider>
-      <LinearGradient
-        colors={['#AEC6CF', '#FFF']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        style={styles.gradient}
+    <ScrollView contentContainerStyle={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Ionicons name="arrow-back" size={24} color="black" />
+      </TouchableOpacity>
+      <Text style={styles.title}>Mis Metas</Text>
+
+      <View style={styles.goalContainer}>
+        <Ionicons
+          name={papel ? 'checkbox' : 'checkbox-outline'}
+          size={24}
+          color={papel ? '#62C370' : '#000'}
+          onPress={() => setPapel(!papel)}
+        />
+        <Text style={styles.goalText}>Papel</Text>
+        {papel && (
+          <View style={styles.quantityContainer}>
+            <Button
+              mode="contained"
+              onPress={handleDecreasePapelCantidad}
+              style={[styles.quantityButton, papel && styles.quantityButtonEnabled]}
+              labelStyle={styles.quantityButtonLabel}
+            >
+              -
+            </Button>
+            <TextInput
+              style={styles.quantityInput}
+              keyboardType="numeric"
+              value={papelCantidad.toString()}
+              onChangeText={setPapelCantidad}
+              underlineColorAndroid="transparent"
+            />
+            <Button
+              mode="contained"
+              onPress={handleIncreasePapelCantidad}
+              style={[styles.quantityButton, papel && styles.quantityButtonEnabled]}
+              labelStyle={styles.quantityButtonLabel}
+            >
+              +
+            </Button>
+          </View>
+        )}
+      </View>
+
+      <View style={styles.goalContainer}>
+        <Ionicons
+          name={vidrio ? 'checkbox' : 'checkbox-outline'}
+          size={24}
+          color={vidrio ? '#62C370' : '#000'}
+          onPress={() => setVidrio(!vidrio)}
+        />
+        <Text style={styles.goalText}>Vidrio</Text>
+        {vidrio && (
+          <View style={styles.quantityContainer}>
+            <Button
+              mode="contained"
+              onPress={handleDecreaseVidrioCantidad}
+              style={[styles.quantityButton, vidrio && styles.quantityButtonEnabled]}
+              labelStyle={styles.quantityButtonLabel}
+            >
+              -
+            </Button>
+            <TextInput
+              style={styles.quantityInput}
+              keyboardType="numeric"
+              value={vidrioCantidad.toString()}
+              onChangeText={setVidrioCantidad}
+              underlineColorAndroid="transparent"
+            />
+            <Button
+              mode="contained"
+              onPress={handleIncreaseVidrioCantidad}
+              style={[styles.quantityButton, vidrio && styles.quantityButtonEnabled]}
+              labelStyle={styles.quantityButtonLabel}
+            >
+              +
+            </Button>
+          </View>
+        )}
+      </View>
+
+      <Button
+        mode="contained"
+        onPress={handleSaveGoals}
+        style={styles.buttonStyle}
+        labelStyle={styles.buttonLabelStyle}
       >
-        <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.title}>Mis Metas</Text>
+        Guardar Metas
+      </Button>
 
-          <View style={styles.goalContainer}>
-            <Icon
-              name={papel ? 'check-box' : 'check-box-outline-blank'}
-              type="material"
-              onPress={() => setPapel(!papel)}
-            />
-            <Text style={styles.goalText}>Paper</Text>
-            {papel && (
-              <View style={styles.quantityContainer}>
-                <Button
-                  mode="contained"
-                  onPress={handleDecreasePapelCantidad}
-                  style={[styles.quantityButton, papel && styles.quantityButtonEnabled]}
-                  labelStyle={styles.quantityButtonLabel}
-                >
-                  -
-                </Button>
-                <TextInput
-                  style={styles.quantityInput}
-                  keyboardType="numeric"
-                  value={papelCantidad.toString()}
-                  onChangeText={setPapelCantidad}
-                />
-                <Button
-                  mode="contained"
-                  onPress={handleIncreasePapelCantidad}
-                  style={[styles.quantityButton, papel && styles.quantityButtonEnabled]}
-                  labelStyle={styles.quantityButtonLabel}
-                >
-                  +
-                </Button>
-              </View>
-            )}
-          </View>
+      <View style={styles.elementContainer}>
+        <Ionicons name="copy" size={20} color="#62C370" />
+        <Text style={styles.elementText}>{papelCantidad} Papel en la base de datos</Text>
+      </View>
 
-          <View style={styles.goalContainer}>
-            <Icon
-              name={vidrio ? 'check-box' : 'check-box-outline-blank'}
-              type="material"
-              onPress={() => setVidrio(!vidrio)}
-            />
-            <Text style={styles.goalText}>Glass</Text>
-            {vidrio && (
-              <View style={styles.quantityContainer}>
-                <Button
-                  mode="contained"
-                  onPress={handleDecreaseVidrioCantidad}
-                  style={[styles.quantityButton, vidrio && styles.quantityButtonEnabled]}
-                  labelStyle={styles.quantityButtonLabel}
-                >
-                  -
-                </Button>
-                <TextInput
-                  style={styles.quantityInput}
-                  keyboardType="numeric"
-                  value={vidrioCantidad.toString()}
-                  onChangeText={setVidrioCantidad}
-                />
-                <Button
-                  mode="contained"
-                  onPress={handleIncreaseVidrioCantidad}
-                  style={[styles.quantityButton, vidrio && styles.quantityButtonEnabled]}
-                  labelStyle={styles.quantityButtonLabel}
-                >
-                  +
-                </Button>
-              </View>
-            )}
-          </View>
+      <View style={styles.elementContainer}>
+        <Ionicons name="cube" size={20} color="#62C370" />
+        <Text style={styles.elementText}>{vidrioCantidad} Vidrio en la base de datos</Text>
+      </View>
 
-          <Button
-            mode="contained"
-            onPress={handleSaveGoals}
-            style={styles.buttonStyle}
-            labelStyle={styles.buttonLabelStyle}
-          >
-            Save Goals
-          </Button>
+      <Text style={styles.subTitle}>Notas:</Text>
 
-          <View style={styles.elementContainer}>
-            <Icon name="file" type="font-awesome" />
-            <Text style={styles.elementText}>
-              {papelCantidad} Your paper in the database
-            </Text>
-          </View>
+      <TextInput
+        style={styles.notesInput}
+        multiline
+        value={notas}
+        onChangeText={setNotas}
+      />
 
-          <View style={styles.elementContainer}>
-            <Icon name="cube" type="font-awesome" />
-            <Text style={styles.elementText}>
-              {vidrioCantidad} Your glass in the database
-            </Text>
-          </View>
-
-          <Text style={styles.subTitle}>Notes:</Text>
-
-          <TextInput
-            style={styles.notesInput}
-            multiline
-            value={notas}
-            onChangeText={setNotas}
-          />
-
-          <Button
-            mode="contained"
-            onPress={handleSaveNotas}
-            style={styles.buttonStyle}
-            labelStyle={styles.buttonLabelStyle}
-          >
-            Save Notes
-          </Button>
-        </ScrollView>
-      </LinearGradient>
-    </PaperProvider>
+      <Button
+        mode="contained"
+        onPress={handleSaveNotas}
+        style={styles.buttonStyle}
+        labelStyle={styles.buttonLabelStyle}
+      >
+        Guardar Notas
+      </Button>
+    </ScrollView>
   );
 };
 
 const styles = {
-  gradient: {
-    flex: 1,
-  },
   container: {
     flexGrow: 1,
     padding: 16,
-    backgroundColor: 'transparent',
+    backgroundColor: '#FFF',
+  },
+  backButton: {
+    marginRight: 10,
   },
   title: {
     fontSize: 24,
@@ -270,8 +263,6 @@ const styles = {
   },
   quantityButtonEnabled: {
     backgroundColor: '#FFF',
-    
-    
   },
   quantityButtonLabel: {
     fontSize: 15,
@@ -282,7 +273,7 @@ const styles = {
     marginLeft: 40,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: '#000',
     borderRadius: 4,
     paddingHorizontal: 8,
     color: '#000',
@@ -292,7 +283,7 @@ const styles = {
   },
   buttonStyle: {
     marginTop: 16,
-    backgroundColor: '#4267B2',
+    backgroundColor: '#4CAF50',
     borderColor: '#565559',
     borderRadius: 5,
   },
@@ -308,12 +299,12 @@ const styles = {
   },
   elementText: {
     marginLeft: 10,
-    fontSize: 16,
+    fontSize: 18,
     color: '#000',
     fontWeight: 'bold',
   },
   subTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginTop: 16,
     color: '#000',
@@ -322,9 +313,9 @@ const styles = {
   },
   notesInput: {
     marginTop: 8,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: 'transparent',
+    fontSize: 20,
+    borderWidth: 3,
+    borderColor: '#000',
     borderRadius: 4,
     paddingHorizontal: 8,
     paddingVertical: 12,

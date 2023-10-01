@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 
@@ -30,15 +29,10 @@ const ContactoScreen = () => {
 
   return (
     <PaperProvider>
-      <LinearGradient
-        colors={['#AEC6CF', '#FFF']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        style={styles.gradient}
-      >
-        <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.title}>Pantalla de Contacto</Text>
-          <Text style={styles.subtitle}>Contact Us:</Text>
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.contentContainer}>
+          <Text style={styles.title}>Contact Us</Text>
+          <Text style={styles.subtitle}>Get in Touch:</Text>
           <View style={styles.socialIconsContainer}>
             <TouchableOpacity onPress={handleFacebookPress}>
               <Animatable.View animation="bounceIn" duration={1000}>
@@ -56,28 +50,30 @@ const ContactoScreen = () => {
           <Text style={styles.contactText}>Email: contact@example.com</Text>
           <Text style={styles.contactText}>Phone: +1234567890</Text>
 
+          <Text style={styles.additionalContent}>Feel free to reach out to us for any inquiries, suggestions, or feedback. We value your thoughts and are committed to providing the best experience for our users.</Text>
+
           <TouchableOpacity onPress={handleGoBack} style={styles.goBackButton}>
             <Ionicons name="arrow-back" size={24} color="#4267B2" />
             <Text style={styles.goBackText}>Go Back</Text>
           </TouchableOpacity>
         </ScrollView>
-      </LinearGradient>
+      </View>
     </PaperProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  gradient: {
-    flex: 1,
-  },
   container: {
-    flexGrow: 1,
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  contentContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
   },
   title: {
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
     fontFamily: 'System',
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
@@ -110,6 +106,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
     color: '#444',
+  },
+  additionalContent: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center',
+    color: '#666',
   },
   goBackButton: {
     flexDirection: 'row',

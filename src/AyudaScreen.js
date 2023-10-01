@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, SafeAreaView } from 'react-native';
-import { Button, Provider as PaperProvider } from 'react-native-paper';
-import { LinearGradient } from 'expo-linear-gradient';
+import { Button, Provider as PaperProvider, TextInput } from 'react-native-paper';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { MaterialIcons } from '@expo/vector-icons';
+import * as Animatable from 'react-native-animatable';
 
 const AyudaScreen = () => {
   const [messages, setMessages] = useState([]);
@@ -34,11 +35,10 @@ const AyudaScreen = () => {
       '¿Cómo puedo reportar un problema técnico en la app?': 'Si encuentras algún problema técnico en la app, puedes dirigirte a la sección de "Soporte" o "Ayuda" dentro de la app. Allí encontrarás información sobre cómo contactar a nuestro equipo de soporte técnico para reportar el problema y recibir asistencia.',
       '¿La app está disponible en diferentes idiomas?': 'Sí, nuestra app está disponible en varios idiomas, incluyendo inglés y español. Puedes cambiar el idioma en la configuración de la app.',
       '¿Hay alguna opción de participar en eventos o campañas de reciclaje a través de la app?': 'Sí, regularmente organizamos eventos y campañas de reciclaje en colaboración con diferentes organizaciones. En la app, podrás encontrar información actualizada sobre eventos cercanos, cómo participar y contribuir a causas ambientales.',
-      '¿Qué medidas de seguridad se toman para proteger la privacidad de los usuarios en la app?': 'La privacidad de nuestros usuarios es una prioridad. La app utiliza medidas de seguridad robustas para proteger la información personal. No compartimos tus datos con terceros sin tu consentimiento y seguimos todas las leyes y regulaciones de privacidad aplicables.'
-  
+      '¿Qué medidas de seguridad se toman para proteger la privacidad de los usuarios en la app?': 'La privacidad de nuestros usuarios es una prioridad. La app utiliza medidas de seguridad robustas para proteger la información personal. No compartimos tus datos con terceros sin tu consentimiento y seguimos todas las leyes y regulaciones de privacidad aplicables.',
     };
 
-    return questionMapping[question] || 'Lo siento, no entiendo tu pregunta. ¿Podrías reformularla?';
+    return questionMapping[question] || questionMapping['Default'];
   };
 
   const createBotMessage = (text) => ({
@@ -50,70 +50,80 @@ const AyudaScreen = () => {
 
   return (
     <PaperProvider>
-      <LinearGradient
-        colors={['#AEC6CF', '#FFF']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        style={styles.gradient}
-      >
-        <SafeAreaView style={styles.container}>
-          <Text style={styles.title}>Send a Message!</Text>
-          <View style={styles.chatContainer}>
-            <GiftedChat
-              messages={messages}
-              onSend={handleSend}
-              user={{
-                _id: 1,
-              }}
-              renderBubble={(props) => (
-                <Bubble
-                  {...props}
-                  wrapperStyle={{
-                    left: {
-                      backgroundColor: '#f0f0f0',
-                    },
-                    right: {
-                      backgroundColor: '#4267B2',
-                    },
-                  }}
-                  textStyle={{
-                    left: {
-                      color: '#000',
-                      fontSize: 16,
-                    },
-                    right: {
-                      color: '#fff',
-                      fontSize: 16,
-                    },
-                  }}
-                />
-              )}
-            />
-            
-          </View>
-        </SafeAreaView>
-      </LinearGradient>
+      <SafeAreaView style={styles.container}>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.iconContainer}>
+          <MaterialIcons name="chat" size={40} color="#4CAF50" />
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000}>
+          <Text style={styles.title}>SEND A MESSAGE</Text>
+        </Animatable.View>
+        <View style={styles.chatContainer}>
+          <GiftedChat
+            messages={messages}
+            onSend={handleSend}
+            user={{
+              _id: 1,
+            }}
+            renderBubble={(props) => (
+              <Bubble
+                {...props}
+                wrapperStyle={{
+                  left: {
+                    backgroundColor: '#f0f0f0',
+                  },
+                  right: {
+                    backgroundColor: '#4267B2',
+                  },
+                }}
+                textStyle={{
+                  left: {
+                    color: '#000',
+                    fontSize: 16,
+                  },
+                  right: {
+                    color: '#fff',
+                    fontSize: 16,
+                  },
+                }}
+              />
+            )}
+          />
+        </View>
+      </SafeAreaView>
     </PaperProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  gradient: {
-    flex: 1,
-  },
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  iconContainer: {
+    marginBottom: 20,
   },
   title: {
-    fontSize: 25,
     fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-    color: '#444',
+    fontSize: 30,
+    marginBottom: 20,
     fontFamily: 'System',
+    color: '#4CAF50',
   },
   chatContainer: {
     flex: 1,
+    width: '100%',
+  },
+  input: {
+    backgroundColor: '#f0f0f0',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    fontSize: 16,
+    color: '#000',
+    width: '100%',
+    borderTopWidth: 1,
+    borderColor: '#ccc',
   },
 });
 

@@ -46,16 +46,16 @@ const StatusScreen = ({ navigation }) => {
   };
 
   return (
-    <LinearGradient colors={['#AEC6CF', '#FFF']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradient}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.title}>Statistics of all users:</Text>
-      </View>
-      <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Ionicons name="arrow-back" size={24} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.title}>Statistics of All Users</Text>
+        </View>
         <View style={styles.chartContainer}>
-          <Text style={styles.chartTitle}>Bar graph</Text>
+          <Text style={styles.chartTitle}>Bar Graph</Text>
           <VictoryChart
             theme={VictoryTheme.material}
             domainPadding={20}
@@ -68,7 +68,7 @@ const StatusScreen = ({ navigation }) => {
               gutter={20}
               style={{ border: { stroke: 'black' }, title: { fontSize: 12 } }}
               data={[
-                { name: 'Paper  Quantity', symbol: { fill: 'rgba(134, 65, 244, 0.8)' } },
+                { name: 'Paper Quantity', symbol: { fill: 'rgba(134, 65, 244, 0.8)' } },
                 { name: 'Glass Quantity', symbol: { fill: 'rgba(244, 65, 134, 0.8)' } },
               ]}
             />
@@ -104,7 +104,7 @@ const StatusScreen = ({ navigation }) => {
           </VictoryChart>
         </View>
         <View style={styles.chartContainer}>
-          <Text style={styles.chartTitle}>Pie chart</Text>
+          <Text style={styles.chartTitle}>Pie Chart</Text>
           <VictoryPie
             data={totalData}
             colorScale={['rgba(134, 65, 244, 0.8)', 'rgba(244, 65, 134, 0.8)']}
@@ -116,13 +116,19 @@ const StatusScreen = ({ navigation }) => {
           />
         </View>
       </ScrollView>
-    </LinearGradient>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  gradient: {
+  container: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   header: {
     flexDirection: 'row',
@@ -139,10 +145,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: 'System',
-  },
-  container: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
   },
   chartContainer: {
     alignItems: 'center',

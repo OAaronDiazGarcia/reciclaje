@@ -39,85 +39,79 @@ const Home = () => {
   const handleStatusPress = () => {};
 
   return (
-    <LinearGradient
-      colors={['#AEC6CF', '#FFF']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      style={styles.gradient}
-    >
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Ecological culture</Text>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.titleContainer}>
+          <Text style={styles.title}>Ecological Culture</Text>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.subtitleContainer}>
           <Text style={styles.subtitle}>
             The collection and processing of paper and cardboard, glass or plastic waste means creating new products
             based on those same materials. A new opportunity for the Earth, which can be protected if the benefits of
-            recycling are understood, the correct way to separate waste and the challenges that this activity will face
+            recycling are understood, the correct way to separate waste, and the challenges that this activity will face
             in the coming years.
           </Text>
-          <View style={styles.imageContainer}>
-            <Animatable.Image
-              animation="pulse"
-              easing="ease-out"
-              iterationCount="infinite"
-              source={{ uri: 'https://cdn.pixabay.com/photo/2016/03/10/03/28/tree-1247796_1280.png' }}
-              style={[styles.image, { transform: [{ rotate: interpolatedRotation }] }]}
-              resizeMode="contain"
-            />
-            <Animatable.Image
-              animation="pulse"
-              easing="ease-out"
-              iterationCount="infinite"
-              source={{ uri: 'https://cdn.pixabay.com/photo/2023/04/06/10/22/earth-day-7903523_1280.png' }}
-              style={[styles.image, { transform: [{ rotate: interpolatedRotation }] }]}
-              resizeMode="contain"
-            />
-          </View>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.imageContainer}>
+          <Animatable.Image
+            animation="pulse"
+            easing="ease-out"
+            iterationCount="infinite"
+            source={{ uri: 'https://cdn.pixabay.com/photo/2023/04/06/10/22/earth-day-7903523_1280.png' }}
+            style={[styles.image, { transform: [{ rotate: interpolatedRotation }] }]}
+            resizeMode="contain"
+          />
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.subtitleContainer}>
           <Text style={styles.subtitle}>
             In order to acquire awareness, one must have a clear and concise notion of the subject to be sensitized. In
             this case, we talk about recycling and we will explain in a simple way what is meant by recycling.
           </Text>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.subtitleContainer}>
           <Text style={styles.subtitle}>Contact Us:</Text>
-          <View style={styles.socialIconsContainer}>
-            <TouchableOpacity onPress={handleFacebookPress}>
-              <Ionicons name="logo-facebook" size={32} color="#4267B2" style={styles.socialIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleInstagramPress}>
-              <Ionicons name="logo-instagram" size={32} color="#E1306C" style={styles.socialIcon} />
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity onPress={handleStatusPress} style={styles.linkContainer}>
-            <Ionicons name="ios-analytics" size={24} color="#4267B2" />
-            <Link to="/status" style={styles.linkText}>
-              <Text style={styles.linkText}>Do you want to see the global progress?</Text>
-            </Link>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.socialIconsContainer}>
+          <TouchableOpacity onPress={handleFacebookPress}>
+            <Ionicons name="logo-facebook" size={32} color="#4267B2" style={styles.socialIcon} />
           </TouchableOpacity>
-        </View>
+          <TouchableOpacity onPress={handleInstagramPress}>
+            <Ionicons name="logo-instagram" size={32} color="#E1306C" style={styles.socialIcon} />
+          </TouchableOpacity>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.linkContainer}>
+          <Ionicons name="ios-analytics" size={24} color="#4267B2" />
+          <Link to="/status" style={styles.linkText}>
+            <Text style={styles.linkText}>Do you want to see the global progress?</Text>
+          </Link>
+        </Animatable.View>
       </ScrollView>
-    </LinearGradient>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  gradient: {
-    flex: 1,
-  },
-  scrollViewContainer: {
-    flexGrow: 1,
-    padding: 20,
-  },
   container: {
     flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  titleContainer: {
+    marginTop: 40,
+    marginBottom: 20,
+    alignItems: 'center',
   },
   title: {
-    fontSize: 25,
     fontWeight: 'bold',
-    marginBottom: 10,
+    fontSize: 30,
+    color: '#4CAF50',
     textAlign: 'center',
-    color: '#000',
-    fontFamily: 'System',
-    textShadowColor: '#000',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
+  },
+  subtitleContainer: {
+    marginBottom: 20,
   },
   subtitle: {
     fontSize: 16,
@@ -125,18 +119,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#444',
     fontFamily: 'System',
-    textShadowColor: '#000',
-    textShadowRadius: 1,
+    lineHeight: 22,
   },
   imageContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    alignItems: 'center',
     marginBottom: 20,
   },
   image: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
   },
   socialIconsContainer: {
     flexDirection: 'row',
@@ -150,15 +142,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 40,
   },
   linkText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 5,
-    color: '#4267B2',
+    color: '#4CAF50',
     textDecorationLine: 'underline',
-    textShadowRadius: 1,
   },
 });
 

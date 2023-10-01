@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, ScrollView, Image, Alert } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Image } from 'react-native';
 import { Button, TextInput as PaperTextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import firebase from '../config';
 
@@ -44,7 +43,7 @@ const Profile = () => {
         await userRef.set({
           name,
           lastName,
-          profileImage: profileImage || null, // Guardar la imagen como un campo binario en Firestore
+          profileImage: profileImage || null,
         });
         console.log('Datos del usuario actualizados en Firestore.');
       } catch (error) {
@@ -62,32 +61,26 @@ const Profile = () => {
       aspect: [1, 1],
       quality: 1,
     });
-  
+
     if (!result.canceled) {
       setProfileImage(result.assets[0].uri);
     }
   };
 
   return (
-    <LinearGradient
-      colors={['#AEC6CF', '#FFF']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.gradient}
-    >
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.container}>
-          <Text style={styles.title}> Update your credentials</Text>
-          <View style={styles.profileImageContainer}>
-            {profileImage ? (
-              <Image source={{ uri: profileImage }} style={styles.profileImage} />
-            ) : (
-              <Ionicons name="person-circle-outline" size={100} color="#565559" />
-            )}
-            <Button mode="contained" onPress={handleChooseProfileImage} style={styles.chooseImageButton}>
-              Choose Image
-            </Button>
-          </View>
+        <View style={styles.profileImageContainer}>
+          {profileImage ? (
+            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+          ) : (
+            <MaterialIcons name="account-circle" size={100} color="#565559" />
+          )}
+          <Button mode="contained" onPress={handleChooseProfileImage} style={styles.chooseImageButton}>
+            Choose Image
+          </Button>
+        </View>
+        <View style={styles.inputContainer}>
           <PaperTextInput
             style={styles.input}
             label="Name"
@@ -107,55 +100,34 @@ const Profile = () => {
             value={password}
             onChangeText={setPassword}
           />
-          <Button mode="contained" onPress={handleUpdateProfile} style={styles.updateButton}>
-            Update profile
-          </Button>
-          <Button
-            mode="contained"
-            onPress={() => {
-              firebase.auth().signOut(); // Realiza el logout utilizando Firebase
-            }}
-            style={styles.logoutButton}
-          >
-            Logout
-          </Button>
         </View>
+        <Button mode="contained" onPress={handleUpdateProfile} style={styles.updateButton}>
+          Update profile
+        </Button>
+        <Button
+          mode="contained"
+          onPress={() => {
+            firebase.auth().signOut(); // Realiza el logout utilizando Firebase
+          }}
+          style={styles.logoutButton}
+        >
+          Logout
+        </Button>
       </ScrollView>
-    </LinearGradient>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  gradient: {
+  container: {
     flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    backgroundColor: '#FFFFFF', // Cambio de color de fondo
   },
   scrollContainer: {
     flexGrow: 1,
-    paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-  container: {
-    flex: 1,
-  },
-  input: {
-    marginBottom: 16,
-  },
-  logoutButton: {
-    marginTop: 16,
-    backgroundColor: '#C23B22',
-    borderColor: '#565559',
-  },
-  updateButton: {
-    marginTop: 16,
-    backgroundColor: '#efa94a',
-    borderColor: '#565559',
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-    color: '#FFF',
+    alignItems: 'center',
   },
   profileImageContainer: {
     alignItems: 'center',
@@ -168,6 +140,25 @@ const styles = StyleSheet.create({
   },
   chooseImageButton: {
     marginTop: 8,
+    backgroundColor: '#4CAF50',
+  },
+  inputContainer: {
+    width: '100%',
+    marginBottom: 16,
+  },
+  input: {
+    marginBottom: 16,
+    backgroundColor: '#F0F0F0',
+  },
+  updateButton: {
+    marginTop: 16,
+    backgroundColor: '#4CAF50',
+    borderColor: '#565559',
+  },
+  logoutButton: {
+    marginTop: 16,
+    backgroundColor: '#C23B22',
+    borderColor: '#565559',
   },
 });
 

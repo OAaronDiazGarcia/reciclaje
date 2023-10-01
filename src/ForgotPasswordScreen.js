@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button, TextInput as PaperTextInput } from 'react-native-paper';
-import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from '../config';
+import * as Animatable from 'react-native-animatable';
 
 const ForgotPasswordScreen = () => {
   const navigation = useNavigation();
-
   const [email, setEmail] = useState('');
 
   const handleForgotPassword = async () => {
     try {
       await firebase.auth().sendPasswordResetEmail(email);
-      alert('Se ha enviado un correo electrónico para restablecer la contraseña.');
+      alert('An email has been sent to reset your password.');
       setEmail('');
     } catch (error) {
       alert(error.message);
@@ -22,97 +21,107 @@ const ForgotPasswordScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <LinearGradient
-        colors={['#FBB03B', '#FF7E5F']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.gradientContainer}
-      >
-        <Icon name="lock" size={50} color="#FFF" style={styles.icon} />
-        <Text style={styles.title}>Forgot Your Password?</Text>
-        <Text style={styles.subtitle}>Enter your email address to reset your password.</Text>
-      </LinearGradient>
-      <View style={styles.inputContainer}>
-        <PaperTextInput
-          style={styles.textInput}
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      </View>
-      <TouchableOpacity onPress={handleForgotPassword} style={styles.button}>
-        <Text style={styles.buttonText}>Reset Password</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.linkButton}>
-        <Text style={styles.linkButtonText}>Go Back</Text>
-      </TouchableOpacity>
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.iconContainer}>
+          <Icon name="recycle" size={100} color="#4CAF50" />
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000}>
+          <Text style={styles.title}>Forgot Your Password?</Text>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={1000}>
+          <Text style={styles.subtitle}>Enter your email address to reset your password.</Text>
+        </Animatable.View>
+        <View style={styles.inputContainer}>
+          <PaperTextInput
+            style={styles.textInput}
+            label="Email"
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+        <Animatable.View animation="fadeInUp" duration={1000} style={styles.buttonContainer}>
+          <Button
+            mode="contained"
+            onPress={handleForgotPassword}
+            style={styles.button}
+            contentStyle={styles.buttonContent}
+            labelStyle={styles.buttonLabel}
+          >
+            Reset Password
+          </Button>
+        </Animatable.View>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.linkButton}>
+          <Text style={styles.linkButtonText}>Go Back</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  scrollContainer: {
     flexGrow: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start', // Cambiado de 'center' a 'flex-start'
-    paddingHorizontal: 20,
-    paddingTop: 40, // Añadido paddingTop
-  },
-  gradientContainer: {
-    width: '100%',
-    alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 40,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
   },
-  icon: {
+  iconContainer: {
     marginBottom: 20,
   },
   title: {
-    fontSize: 26,
-    color: '#FFF',
+    fontWeight: 'bold',
+    fontSize: 30,
     marginBottom: 10,
+    textAlign: 'center',
+    color: '#4CAF50',
   },
   subtitle: {
     fontSize: 16,
-    color: '#FFF',
+    color: '#4CAF50',
     textAlign: 'center',
     marginBottom: 20,
   },
   inputContainer: {
     width: '100%',
-    alignItems: 'center',
+    marginBottom: 20,
   },
   textInput: {
-    width: Dimensions.get('window').width - 40,
-    fontSize: 20,
     marginBottom: 10,
-    backgroundColor: '#FFF',
+    backgroundColor: '#F0F0F0',
+  },
+  buttonContainer: {
+    alignItems: 'center',
   },
   button: {
-    marginTop: 20, // Cambiado de 50 a 20
+    marginTop: 20,
     height: 50,
-    width: Dimensions.get('window').width - 40,
-    backgroundColor: '#62C370',
-    alignItems: 'center',
+    width: 200,
     justifyContent: 'center',
-    borderRadius: 10,
+    backgroundColor: '#4CAF50',
   },
-  buttonText: {
+  buttonContent: {
+    height: 50,
+  },
+  buttonLabel: {
+    fontSize: 18,
     fontWeight: 'bold',
-    fontSize: 22,
-    color: '#fff',
+    color: '#FFFFFF',
   },
   linkButton: {
     marginTop: 20,
   },
   linkButtonText: {
     fontSize: 16,
-    color: '#62C370',
+    color: '#4CAF50',
+    textAlign: 'center',
   },
 });
 

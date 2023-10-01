@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Button, TextInput as PaperTextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import firebase from '../config';
 import * as Animatable from 'react-native-animatable';
@@ -13,19 +12,16 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    // Verificar si el usuario ya ha iniciado sesión al montar el componente
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        // Si el usuario está autenticado, navegar al dashboard
         navigation.navigate('dashboard');
       }
     });
 
-    // Limpiar el listener cuando el componente se desmonte
     return () => unsubscribe();
   }, []);
 
-  const loginUser = async (email, password) => {
+  const loginUser = async () => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
     } catch (error) {
@@ -34,10 +30,10 @@ const Login = () => {
   };
 
   return (
-    <LinearGradient colors={['#62C370', '#fff']} style={styles.container}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Animatable.View animation="fadeInUp" duration={1000} style={styles.iconContainer}>
-          <MaterialCommunityIcons name="account-circle" size={100} color="#FFF" />
+          <MaterialCommunityIcons name="recycle" size={100} color="#4CAF50" />
         </Animatable.View>
         <Animatable.View animation="fadeInUp" duration={1000}>
           <Text style={styles.title}>WELCOME</Text>
@@ -47,7 +43,7 @@ const Login = () => {
             style={styles.textInput}
             label="Email"
             value={email}
-            onChangeText={(email) => setEmail(email)}
+            onChangeText={setEmail}
             autoCapitalize="none"
             autoCorrect={false}
           />
@@ -55,16 +51,16 @@ const Login = () => {
             style={styles.textInput}
             label="Password"
             value={password}
-            onChangeText={(password) => setPassword(password)}
+            onChangeText={setPassword}
             autoCapitalize="none"
             autoCorrect={false}
-            secureTextEntry={true}
+            secureTextEntry
           />
         </Animatable.View>
         <Animatable.View animation="fadeInUp" duration={1000} style={styles.buttonContainer}>
           <Button
             mode="contained"
-            onPress={() => loginUser(email, password)}
+            onPress={loginUser}
             style={styles.button}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonLabel}
@@ -79,7 +75,7 @@ const Login = () => {
           <Text style={styles.registerText}>Forgot your password?</Text>
         </TouchableOpacity>
       </ScrollView>
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -88,6 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 20,
+    backgroundColor: '#FFFFFF',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -103,7 +100,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
     fontFamily: 'System',
-    color: '#FFF',
+    color: '#4CAF50',
   },
   inputContainer: {
     width: '100%',
@@ -111,7 +108,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     marginBottom: 10,
-    backgroundColor: '#FFF',
+    backgroundColor: '#F0F0F0',
   },
   buttonContainer: {
     alignItems: 'center',
@@ -121,9 +118,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 200,
     justifyContent: 'center',
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#565559',
+    backgroundColor: '#4CAF50',
   },
   buttonContent: {
     height: 50,
@@ -131,14 +126,14 @@ const styles = StyleSheet.create({
   buttonLabel: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#565556',
+    color: '#FFFFFF',
   },
   registerContainer: {
     marginTop: 20,
   },
   registerText: {
     fontSize: 16,
-    color: '#565556',
+    color: '#4CAF50',
     textAlign: 'center',
   },
 });
